@@ -4,13 +4,10 @@ import torch.nn.functional as F
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-tq = 5
-hq = 8
-wq = 8
+
 T = 6
 H = 16
 W = 16
-dropout = 0.2
 n_embed = 16
 num_neurons = 32
 block_size = 6
@@ -91,9 +88,7 @@ class Head(nn.Module):
     def __init__(self, head_size):
         super().__init__()
         self.query = nn.Linear(n_embed, num_neurons, bias=False)
-        # self.register_buffer('tril', torch.tril(torch.ones(block_size, block_size)))
-        # self.dropout = nn.Dropout(dropout)
-        
+    
         self.keys = []
         self.values = []
         for i in range(num_patches):
